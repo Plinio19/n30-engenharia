@@ -71,5 +71,15 @@
     "cpfCnpj": "000.000.000-00",
     "nome": "Tiago Polegar",
     "celular": "13997813880"
+  },
+  {
+    "id": "ms9d865imisnq",
+    "criadoEm": "2026-07-31",
+    "tipo": "pf",
+    "cpfCnpj": "599.709.228-31",
+    "nome": "Renan Arruda Moedano Alves",
+    "ie": "53687347",
+    "celular": "11982219734",
+    "cidade": "Peruíbe"
   }
 ]
