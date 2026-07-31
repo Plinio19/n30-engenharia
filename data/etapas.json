@@ -24,5 +24,18 @@
     "checklist": [],
     "materiais": [],
     "criadoEm": "2026-07-31"
+  },
+  {
+    "id": "ms9cc0cn5jxhz",
+    "obraId": "ms9c131ixq3to",
+    "nome": "ETAPA 3",
+    "categoria": "hidraulica",
+    "status": "em_andamento",
+    "peso": 40,
+    "percentualExecutado": 0,
+    "dependencias": [],
+    "checklist": [],
+    "materiais": [],
+    "criadoEm": "2026-07-31"
   }
 ]
