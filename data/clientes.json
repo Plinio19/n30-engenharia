@@ -47,5 +47,21 @@
     "bairro": "Boqueirão",
     "cidade": "Praia Grande",
     "estado": "SP"
+  },
+  {
+    "id": "ms9d0gatkc8ax",
+    "criadoEm": "2026-07-31",
+    "tipo": "pf",
+    "cpfCnpj": "080.529.3287",
+    "nome": "Elias Ferreira de Brito",
+    "ie": "19899114",
+    "celular": "13997042476",
+    "cep": "11320-080",
+    "logradouro": "Rua Freitas Guimarães",
+    "numero": "265",
+    "complemento": "103A",
+    "bairro": "Itararé",
+    "cidade": "São Vicente",
+    "estado": "SP"
   }
 ]
