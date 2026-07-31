@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
   Row, Col, Card, Statistic, Typography, Table, Progress,
-  Space, Tag, Tabs, Divider, Select, Button,
+  Space, Tag, Tabs, Divider, Select, Button, Input,
 } from 'antd';
 import {
-  ArrowUpOutlined, ArrowDownOutlined, MinusOutlined, PrinterOutlined,
+  ArrowUpOutlined, ArrowDownOutlined, MinusOutlined, PrinterOutlined, FilePdfOutlined, SearchOutlined,
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { useObrasStore } from '../../stores/useObrasStore';
@@ -105,6 +105,8 @@ export default function RelatoriosPage() {
 
   const [anoFiltro, setAnoFiltro] = useState<string>('todos');
   const [anoFiltroReceber, setAnoFiltroReceber] = useState<string>('todos');
+  const [statusFiltroReceber, setStatusFiltroReceber] = useState<StatusLancamento | 'todos'>('todos');
+  const [buscaReceber, setBuscaReceber] = useState('');
 
   useEffect(() => {
     fetchObras(); fetchEtapas(); fetchLanc(); fetchClientes();
@@ -229,9 +231,138 @@ export default function RelatoriosPage() {
   const totRecebido = receitasPorObra.reduce((s, o) => s + o.recebido, 0);
   const totPendente = receitasPorObra.reduce((s, o) => s + o.pendente, 0);
 
+  // ── Contas a Receber (completo, todos os lançamentos de receita) ──
+  const receberCompletoBase = lancReceber.filter(l => l.tipo === 'receita');
+  const receberCompleto = receberCompletoBase
+    .filter(l => statusFiltroReceber === 'todos' || l.status === statusFiltroReceber)
+    .filter(l => !buscaReceber ||
+      l.descricao.toLowerCase().includes(buscaReceber.toLowerCase()) ||
+      (l.obraNome || '').toLowerCase().includes(buscaReceber.toLowerCase()) ||
+      (l.clienteNome || '').toLowerCase().includes(buscaReceber.toLowerCase()))
+    .sort((a, b) => a.vencimento.localeCompare(b.vencimento));
+
+  const rcRecebido = receberCompletoBase.filter(l => l.status === 'pago').reduce((s, l) => s + l.valor, 0);
+  const rcPendente = receberCompletoBase.filter(l => l.status === 'pendente').reduce((s, l) => s + l.valor, 0);
+  const rcVencido   = receberCompletoBase.filter(l => l.status === 'vencido').reduce((s, l) => s + l.valor, 0);
+  const rcTotal     = receberCompletoBase.filter(l => l.status !== 'cancelado').reduce((s, l) => s + l.valor, 0);
+
+  // ── Impressão consolidada — fechamento geral da empresa ──
+  function imprimirFechamentoCompleto() {
+    const agora = new Date().toLocaleString('pt-BR');
+    const linha = (label: string, valor: number, cor = '#000') =>
+      `<tr><td>${label}</td><td style="text-align:right;color:${cor};font-weight:600;">${formatarMoeda(valor)}</td></tr>`;
+
+    const secObras = obrasAtivas.map(o => `
+      <tr>
+        <td>${o.nome}${o.clienteNome ? `<br/><span style="color:#888;font-size:11px;">${o.clienteNome}</span>` : ''}</td>
+        <td>${o.status}</td>
+        <td style="text-align:right;">${progressoObra(o.id, etapas)}%</td>
+        <td style="text-align:right;">${o.valorContrato ? formatarMoeda(o.valorContrato) : '—'}</td>
+      </tr>`).join('');
+
+    const secReceberObra = receitasPorObra.map(o => `
+      <tr>
+        <td>${o.nome}${o.clienteNome ? `<br/><span style="color:#888;font-size:11px;">${o.clienteNome}</span>` : ''}</td>
+        <td style="text-align:right;color:#2e7d32;">${formatarMoeda(o.recebido)}</td>
+        <td style="text-align:right;color:#e65100;">${formatarMoeda(o.pendente)}</td>
+        <td style="text-align:right;font-weight:600;">${formatarMoeda(o.recebido + o.pendente)}</td>
+      </tr>`).join('');
+
+    const secReceberCompleto = receberCompletoBase
+      .slice().sort((a, b) => a.vencimento.localeCompare(b.vencimento))
+      .map(l => `
+      <tr>
+        <td>${titleCase(l.descricao)}${l.obraNome ? `<br/><span style="color:#888;font-size:11px;">${l.obraNome}</span>` : ''}</td>
+        <td>${formatarData(l.vencimento)}</td>
+        <td>${l.pagamento ? formatarData(l.pagamento) : '—'}</td>
+        <td>${STATUS_LABEL[l.status]}</td>
+        <td style="text-align:right;font-weight:600;">${formatarMoeda(l.valor)}</td>
+      </tr>`).join('');
+
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"/>
+      <title>Fechamento Geral — N30 Engenharia</title>
+      <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; font-size: 12px; padding: 28px; color: #222; }
+        h1 { font-size: 20px; margin: 0; }
+        h2 { font-size: 14px; margin: 28px 0 8px; padding-bottom: 4px; border-bottom: 2px solid #1677ff; color: #1677ff; }
+        .cabecalho { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #1677ff; padding-bottom: 12px; margin-bottom: 4px; }
+        .cabecalho .sub { color: #666; font-size: 11px; margin-top: 2px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+        th, td { border: 1px solid #ddd; padding: 5px 8px; font-size: 11px; }
+        th { background: #f5f5f5; text-align: left; }
+        .kpis { display: flex; gap: 10px; margin-top: 10px; }
+        .kpi { flex: 1; border: 1px solid #ddd; border-radius: 6px; padding: 10px; text-align: center; }
+        .kpi .v { font-size: 16px; font-weight: 700; }
+        .kpi .l { font-size: 10px; color: #888; text-transform: uppercase; }
+        @media print { button { display: none; } }
+      </style></head>
+      <body>
+      <button onclick="window.print()" style="margin-bottom:16px;padding:8px 16px;cursor:pointer">🖨️ Imprimir</button>
+      <div class="cabecalho">
+        <div>
+          <h1>N30 Engenharia</h1>
+          <div class="sub">Fechamento Geral da Empresa</div>
+        </div>
+        <div class="sub">Gerado em ${agora}</div>
+      </div>
+
+      <h2>Visão Geral</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="v">${formatarMoeda(totalContrato)}</div><div class="l">Volume Contratado</div></div>
+        <div class="kpi"><div class="v" style="color:#2e7d32;">${formatarMoeda(totalRecebido)}</div><div class="l">Total Recebido</div></div>
+        <div class="kpi"><div class="v" style="color:#c62828;">${formatarMoeda(totalPago)}</div><div class="l">Total Pago</div></div>
+        <div class="kpi"><div class="v" style="color:${saldo >= 0 ? '#2e7d32' : '#c62828'};">${formatarMoeda(saldo)}</div><div class="l">Saldo</div></div>
+      </div>
+
+      <h2>Resumo por Obra</h2>
+      <table><thead><tr><th>Obra</th><th>Status</th><th style="text-align:right;">Progresso</th><th style="text-align:right;">Contrato</th></tr></thead>
+      <tbody>${secObras || '<tr><td colspan="4">Nenhuma obra.</td></tr>'}</tbody></table>
+
+      <h2>DRE — Demonstrativo de Resultados${anoFiltro !== 'todos' ? ` (${anoFiltro})` : ''}</h2>
+      <table><tbody>
+        ${linha('Receitas realizadas (pagas)', totalRecPago, '#2e7d32')}
+        ${linha('A receber (pendentes)', totalRecPend, '#1565c0')}
+        ${linha('Despesas pagas', -totalDespPagas, '#c62828')}
+        ${linha('Despesas a pagar (pendentes)', -totalDespPend, '#e65100')}
+        <tr><td colspan="2"><hr/></td></tr>
+        ${linha('= Resultado Bruto', resultadoBruto, resultadoBruto >= 0 ? '#2e7d32' : '#c62828')}
+        ${totalDistPago > 0 ? linha('(−) Distribuições realizadas', -totalDistPago, '#c62828') : ''}
+        ${totalDistPago > 0 ? linha('= Resultado Líquido', resultadoLiquido, resultadoLiquido >= 0 ? '#2e7d32' : '#c62828') : ''}
+        <tr><td colspan="2"><hr/></td></tr>
+        ${linha('= Saldo Projetado (realizado + pendente)', saldoProjetado, saldoProjetado >= 0 ? '#2e7d32' : '#c62828')}
+      </tbody></table>
+
+      <h2>Contas a Receber — Completo</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="v" style="color:#2e7d32;">${formatarMoeda(rcRecebido)}</div><div class="l">Recebido</div></div>
+        <div class="kpi"><div class="v" style="color:#f9a825;">${formatarMoeda(rcPendente)}</div><div class="l">Pendente</div></div>
+        <div class="kpi"><div class="v" style="color:#c62828;">${formatarMoeda(rcVencido)}</div><div class="l">Vencido</div></div>
+        <div class="kpi"><div class="v">${formatarMoeda(rcTotal)}</div><div class="l">Total Geral</div></div>
+      </div>
+      <table><thead><tr><th>Descrição</th><th>Vencimento</th><th>Pagamento</th><th>Status</th><th style="text-align:right;">Valor</th></tr></thead>
+      <tbody>${secReceberCompleto || '<tr><td colspan="5">Nenhum lançamento.</td></tr>'}</tbody></table>
+
+      <h2>Receber por Obra</h2>
+      <table><thead><tr><th>Obra</th><th style="text-align:right;">Recebido</th><th style="text-align:right;">Pendente</th><th style="text-align:right;">Total</th></tr></thead>
+      <tbody>${secReceberObra || '<tr><td colspan="4">Nenhuma obra com receitas.</td></tr>'}</tbody></table>
+
+      </body></html>`;
+
+    const w = window.open('', '_blank');
+    if (w) { w.document.write(html); w.document.close(); }
+  }
+
   return (
     <div>
-      <Title level={4} style={{ marginBottom: 20 }}>Relatórios</Title>
+      <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
+        <Col><Title level={4} style={{ margin: 0 }}>Relatórios</Title></Col>
+        <Col>
+          <Button type="primary" icon={<FilePdfOutlined />} onClick={imprimirFechamentoCompleto}>
+            Imprimir Fechamento Completo
+          </Button>
+        </Col>
+      </Row>
 
       <Tabs
         defaultActiveKey="geral"
@@ -451,7 +582,98 @@ export default function RelatoriosPage() {
             ),
           },
 
-          // ── TAB 3: RECEBER POR OBRA ──────────────────────────────────────
+          // ── TAB 3: CONTAS A RECEBER (COMPLETO) ────────────────────────────
+          {
+            key: 'receber-completo',
+            label: 'Contas a Receber',
+            children: (
+              <div>
+                <style>{`
+                  @media print {
+                    .ant-layout-sider, .ant-layout-header { display: none !important; }
+                    .ant-layout-content { padding: 8px 16px !important; }
+                    .ant-tabs-nav, .no-print { display: none !important; }
+                    body { background: white !important; }
+                  }
+                `}</style>
+
+                <Row justify="space-between" align="middle" style={{ marginBottom: 16 }} gutter={[12, 12]}>
+                  <Col>
+                    <Title level={5} style={{ margin: 0 }}>Contas a Receber — Completo</Title>
+                    <Text type="secondary" style={{ fontSize: 12 }}>
+                      Todos os lançamentos de receita, com ou sem obra vinculada
+                    </Text>
+                  </Col>
+                  <Col>
+                    <Space className="no-print" wrap>
+                      <Input prefix={<SearchOutlined />} placeholder="Buscar..." allowClear
+                        value={buscaReceber} onChange={e => setBuscaReceber(e.target.value)} style={{ width: 180 }} />
+                      <Select value={statusFiltroReceber} onChange={setStatusFiltroReceber} style={{ width: 130 }}
+                        options={[{ value: 'todos', label: 'Todos status' }, ...Object.entries(STATUS_LABEL).map(([v, l]) => ({ value: v, label: l }))]} />
+                      <Select value={anoFiltroReceber} onChange={setAnoFiltroReceber} style={{ width: 110 }}
+                        options={[{ value: 'todos', label: 'Todos' }, ...ANOS]} />
+                      <Button icon={<PrinterOutlined />} onClick={() => window.print()}>Imprimir</Button>
+                    </Space>
+                  </Col>
+                </Row>
+
+                <Row gutter={[12, 12]} style={{ marginBottom: 16 }}>
+                  <Col xs={12} sm={6}>
+                    <Card size="small"><Statistic title="Recebido" value={formatarMoeda(rcRecebido)} valueStyle={{ color: '#52c41a', fontSize: 16 }} /></Card>
+                  </Col>
+                  <Col xs={12} sm={6}>
+                    <Card size="small"><Statistic title="Pendente" value={formatarMoeda(rcPendente)} valueStyle={{ color: '#faad14', fontSize: 16 }} /></Card>
+                  </Col>
+                  <Col xs={12} sm={6}>
+                    <Card size="small"><Statistic title="Vencido" value={formatarMoeda(rcVencido)} valueStyle={{ color: '#ff4d4f', fontSize: 16 }} /></Card>
+                  </Col>
+                  <Col xs={12} sm={6}>
+                    <Card size="small"><Statistic title="Total Geral" value={formatarMoeda(rcTotal)} valueStyle={{ fontSize: 16 }} /></Card>
+                  </Col>
+                </Row>
+
+                <Table<Lancamento>
+                  dataSource={receberCompleto}
+                  rowKey="id"
+                  size="small"
+                  pagination={{ pageSize: 30, showTotal: t => `${t} lançamento(s)` }}
+                  locale={{ emptyText: 'Nenhum lançamento encontrado.' }}
+                  columns={[
+                    { title: 'Descrição', dataIndex: 'descricao', render: (d: string, r) => (
+                      <div>
+                        <Text strong>{titleCase(d)}</Text>
+                        {(r.obraNome || r.clienteNome) && (
+                          <div><Text type="secondary" style={{ fontSize: 11 }}>{r.obraNome || r.clienteNome}</Text></div>
+                        )}
+                      </div>
+                    )},
+                    { title: 'Vencimento', dataIndex: 'vencimento', width: 110,
+                      sorter: (a, b) => a.vencimento.localeCompare(b.vencimento),
+                      render: (d: string) => formatarData(d) },
+                    { title: 'Pagamento', dataIndex: 'pagamento', width: 110,
+                      render: (d: string) => d ? formatarData(d) : <Text type="secondary">—</Text> },
+                    { title: 'Status', dataIndex: 'status', width: 110,
+                      render: (s: StatusLancamento) => <Tag color={STATUS_COLOR[s]}>{STATUS_LABEL[s]}</Tag> },
+                    { title: 'Valor', dataIndex: 'valor', width: 130, align: 'right' as const,
+                      sorter: (a, b) => a.valor - b.valor,
+                      render: (v: number, r) => (
+                        <Text strong style={{ color: r.status === 'pago' ? '#52c41a' : undefined }}>{formatarMoeda(v)}</Text>
+                      )},
+                  ]}
+                  summary={() => (
+                    <Table.Summary.Row>
+                      <Table.Summary.Cell index={0} colSpan={4}><Text strong>Total (filtrado)</Text></Table.Summary.Cell>
+                      <Table.Summary.Cell index={4} align="right">
+                        <Text strong>{formatarMoeda(receberCompleto.reduce((s, l) => s + l.valor, 0))}</Text>
+                      </Table.Summary.Cell>
+                    </Table.Summary.Row>
+                  )}
+                />
+              </div>
+            ),
+          },
+
+          // ── TAB 4: RECEBER POR OBRA ──────────────────────────────────────
           {
             key: 'receber-obra',
             label: 'Receber por Obra',
