@@ -16,7 +16,7 @@ import { useEtapasStore } from '../../stores/useEtapasStore';
 import { useLancamentosStore } from '../../stores/useLancamentosStore';
 import { ClienteFormFields } from '../cadastros/ClientesPage';
 import { OBRA_STATUS_OPTIONS } from '../../components/common/StatusTag';
-import { uid, hoje, formatarMoeda } from '../../utils';
+import { uid, hoje, formatarMoeda, formatarInputMoeda, parseInputMoeda } from '../../utils';
 
 const { Text } = Typography;
 
@@ -339,7 +339,8 @@ export default function ObraForm({ obra, open, onClose }: Props) {
       <Input size="small" value={r.descricao} onChange={e => updateParcela(r.id, 'descricao', e.target.value)} />
     )},
     { title: 'Valor', dataIndex: 'valor', width: 140, render: (_: number, r: Parcela) => (
-      <InputNumber size="small" style={{ width: '100%' }} prefix="R$" value={r.valor}
+      <InputNumber<number> size="small" style={{ width: '100%' }} prefix="R$" value={r.valor}
+        formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v)}
         onChange={v => updateParcela(r.id, 'valor', v || 0)} />
     )},
     { title: 'Vencimento', dataIndex: 'vencimento', width: 150, render: (_: string, r: Parcela) => (
@@ -361,7 +362,8 @@ export default function ObraForm({ obra, open, onClose }: Props) {
         onChange={e => setFuncs(prev => prev.map(f => f.funcionarioId === r.funcionarioId ? { ...f, funcao: e.target.value } : f))} />
     )},
     { title: 'Salário/mês', dataIndex: 'salario', width: 140, render: (_: number, r: ObraFuncionario) => (
-      <InputNumber size="small" prefix="R$" style={{ width: '100%' }} value={r.salario}
+      <InputNumber<number> size="small" prefix="R$" style={{ width: '100%' }} value={r.salario}
+        formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v)}
         onChange={v => setFuncs(prev => prev.map(f => f.funcionarioId === r.funcionarioId ? { ...f, salario: v || 0 } : f))} />
     )},
     { title: '', width: 40, render: (_: unknown, r: ObraFuncionario) => (
@@ -391,7 +393,8 @@ export default function ObraForm({ obra, open, onClose }: Props) {
         options={prestadores.map(p => ({ value: p.id, label: p.nome }))} />
     )},
     { title: 'Valor', dataIndex: 'valor', width: 130, render: (_: number, r: DespesaObra) => (
-      <InputNumber size="small" style={{ width: '100%' }} prefix="R$" value={r.valor}
+      <InputNumber<number> size="small" style={{ width: '100%' }} prefix="R$" value={r.valor}
+        formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v)}
         onChange={v => updateDespesa(r.id, 'valor', v || 0)} />
     )},
     { title: 'Vencimento', dataIndex: 'vencimento', width: 145, render: (_: string, r: DespesaObra) => (
@@ -494,7 +497,8 @@ export default function ObraForm({ obra, open, onClose }: Props) {
                 <Row gutter={16}>
                   <Col span={8}>
                     <Form.Item name="valorContrato" label="Valor do contrato">
-                      <InputNumber style={{ width: '100%' }} prefix="R$" min={0} />
+                      <InputNumber<number> style={{ width: '100%' }} prefix="R$" min={0}
+                        formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v)} />
                     </Form.Item>
                   </Col>
                   <Col span={8}>

@@ -8,7 +8,7 @@ import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant
 import dayjs from 'dayjs';
 import type { Funcionario } from '../../types';
 import { useFuncionariosStore } from '../../stores/useFuncionariosStore';
-import { uid, hoje, formatarMoeda, formatarData } from '../../utils';
+import { uid, hoje, formatarMoeda, formatarData, formatarInputMoeda, parseInputMoeda } from '../../utils';
 
 const { Title, Text } = Typography;
 
@@ -119,7 +119,7 @@ export default function FuncionariosPage() {
             <Col span={12}><Form.Item name="telefone" label="Telefone"><Input /></Form.Item></Col>
             <Col span={12}>
               <Form.Item name="salario" label="Salário mensal">
-                <InputNumber style={{ width: '100%' }} prefix="R$" min={0} precision={2} />
+                <InputNumber<number> style={{ width: '100%' }} prefix="R$" min={0} precision={2} formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v) as unknown as number} />
               </Form.Item>
             </Col>
           </Row>

@@ -12,7 +12,7 @@ import {
 import type { Modelo, EtapaTemplate, MaterialTemplate, UnidadeMedida, ClassificacaoMaterial } from '../../types';
 import { useModelosStore } from '../../stores/useModelosStore';
 import { useCatalogoStore } from '../../stores/useCatalogoStore';
-import { uid, hoje, formatarMoeda } from '../../utils';
+import { uid, hoje, formatarMoeda, formatarInputMoeda, parseInputMoeda } from '../../utils';
 
 const { Title, Text } = Typography;
 
@@ -103,7 +103,8 @@ function MateriaisEtapa({
             onChange={v => setQtd(v || 0)} />
         </Col>
         <Col style={{ width: 110 }}>
-          <InputNumber style={{ width: '100%' }} placeholder="R$ unit." prefix="R$" min={0} value={valor}
+          <InputNumber<number> style={{ width: '100%' }} placeholder="R$ unit." prefix="R$" min={0} value={valor}
+            formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v)}
             onChange={v => setValor(v || 0)} />
         </Col>
         <Col>

@@ -11,7 +11,7 @@ import {
 import type { Etapa, MaterialEtapa, StatusEtapa } from '../../types';
 import { useCatalogoStore } from '../../stores/useCatalogoStore';
 import { EtapaStatusTag, ETAPA_STATUS_OPTIONS } from '../../components/common/StatusTag';
-import { formatarMoeda } from '../../utils';
+import { formatarMoeda, formatarPercentual } from '../../utils';
 import MaterialEtapaForm from './MaterialEtapaForm';
 
 const { Text, Title } = Typography;
@@ -150,7 +150,7 @@ export default function EtapaCard({ etapa, onUpdate, onDelete, onEdit, onPrintOS
               </Title>
               <EtapaStatusTag status={etapa.status} />
               {etapa.categoria && <Tag style={{ fontSize: 11 }}>{etapa.categoria}</Tag>}
-              {(etapa.peso || 0) > 0 && <Text type="secondary" style={{ fontSize: 12 }}>{etapa.peso}%</Text>}
+              {(etapa.peso || 0) > 0 && <Text type="secondary" style={{ fontSize: 12 }}>{formatarPercentual(etapa.peso)}%</Text>}
             </Space>
           </Col>
           <Col flex="none">
@@ -189,12 +189,12 @@ export default function EtapaCard({ etapa, onUpdate, onDelete, onEdit, onPrintOS
                 <Slider
                   value={pct} min={0} max={100} step={5}
                   onChange={updateProgresso}
-                  tooltip={{ formatter: v => `${v}%` }}
+                  tooltip={{ formatter: v => `${formatarPercentual(v)}%` }}
                   styles={{ track: { backgroundColor: statusColor } }}
                 />
               </Col>
               <Col flex="none">
-                <Text style={{ fontSize: 13, fontWeight: 600 }}>{pct}%</Text>
+                <Text style={{ fontSize: 13, fontWeight: 600 }}>{formatarPercentual(pct)}%</Text>
               </Col>
             </Row>
           </Col>

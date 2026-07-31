@@ -12,7 +12,7 @@ import { useObrasStore } from '../../stores/useObrasStore';
 import { useEtapasStore } from '../../stores/useEtapasStore';
 import { useCatalogoStore } from '../../stores/useCatalogoStore';
 import { ObraStatusTag, OBRA_STATUS_OPTIONS } from '../../components/common/StatusTag';
-import { formatarMoeda, formatarData } from '../../utils';
+import { formatarMoeda, formatarData, formatarPercentual } from '../../utils';
 import EtapaCard from './EtapaCard';
 import EtapaForm from './EtapaForm';
 
@@ -77,7 +77,7 @@ function imprimirCronograma(obra: Obra, etapas: Etapa[]) {
         <td style="text-align:center">${e.categoria || '—'}</td>
         <td style="text-align:center">${e.responsavel || '—'}</td>
         <td style="text-align:center">${e.status}</td>
-        <td style="text-align:center">${e.percentualExecutado || 0}%</td>
+        <td style="text-align:center">${formatarPercentual(e.percentualExecutado)}%</td>
         <td style="text-align:center">${formatarData(e.dataPrevistoInicio)}</td>
         <td style="text-align:center">${formatarData(e.dataPrevistoFim)}</td>
       </tr>`).join('');

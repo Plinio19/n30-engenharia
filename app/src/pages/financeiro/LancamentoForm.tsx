@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import type { Lancamento, TipoLancamento, StatusLancamento } from '../../types';
 import { useLancamentosStore } from '../../stores/useLancamentosStore';
 import { useObrasStore } from '../../stores/useObrasStore';
-import { uid, hoje, formatarMoeda } from '../../utils';
+import { uid, hoje, formatarMoeda, formatarInputMoeda, parseInputMoeda } from '../../utils';
 
 interface ParcelaEditavel { valor: number; vencimento: dayjs.Dayjs }
 
@@ -201,7 +201,7 @@ export default function LancamentoForm({ tipo, lancamento, open, onClose }: Prop
         </Form.Item>
 
         <Form.Item name="valor" label={parcelar ? 'Valor total' : 'Valor'} rules={[{ required: true }]}>
-          <InputNumber style={{ width: '100%' }} prefix="R$" min={0} precision={2} />
+          <InputNumber<number> style={{ width: '100%' }} prefix="R$" min={0} precision={2} formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v) as unknown as number} />
         </Form.Item>
 
         <Form.Item name="vencimento" label={parcelar ? 'Vencimento da 1ª parcela' : 'Vencimento'} rules={[{ required: true }]}>
@@ -242,7 +242,7 @@ export default function LancamentoForm({ tipo, lancamento, open, onClose }: Prop
                         { title: '#', width: 40, render: (_, f) => f.name + 1 },
                         { title: 'Valor', render: (_, f) => (
                           <Form.Item name={[f.name, 'valor']} noStyle rules={[{ required: true }]}>
-                            <InputNumber style={{ width: '100%' }} prefix="R$" min={0} precision={2} />
+                            <InputNumber<number> style={{ width: '100%' }} prefix="R$" min={0} precision={2} formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v) as unknown as number} />
                           </Form.Item>
                         ) },
                         { title: 'Vencimento', width: 160, render: (_, f) => (

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Drawer, Form, Input, InputNumber, Select, Space, Button, Row, Col, Tag, Typography } from 'antd';
 import type { MaterialEtapa, UnidadeMedida, ClassificacaoMaterial } from '../../types';
 import { useCatalogoStore } from '../../stores/useCatalogoStore';
-import { uid } from '../../utils';
+import { uid, formatarInputMoeda, parseInputMoeda } from '../../utils';
 
 const { Text } = Typography;
 
@@ -136,7 +136,7 @@ export default function MaterialEtapaForm({ material, open, onClose, onSave }: P
           </Col>
           <Col span={8}>
             <Form.Item name="valorPrevisto" label="Valor previsto">
-              <InputNumber style={{ width: '100%' }} prefix="R$" min={0} precision={2} />
+              <InputNumber<number> style={{ width: '100%' }} prefix="R$" min={0} precision={2} formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v) as unknown as number} />
             </Form.Item>
           </Col>
         </Row>
@@ -167,7 +167,7 @@ export default function MaterialEtapaForm({ material, open, onClose, onSave }: P
           </Col>
           <Col span={12}>
             <Form.Item name="valorComprado" label="Valor comprado">
-              <InputNumber style={{ width: '100%' }} prefix="R$" min={0} precision={2} />
+              <InputNumber<number> style={{ width: '100%' }} prefix="R$" min={0} precision={2} formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v) as unknown as number} />
             </Form.Item>
           </Col>
         </Row>

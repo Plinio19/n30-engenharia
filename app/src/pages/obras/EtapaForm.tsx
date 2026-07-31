@@ -104,7 +104,11 @@ export default function EtapaForm({ obraId, etapa, open, onClose, onSave }: Prop
           </Col>
           <Col span={8}>
             <Form.Item name="peso" label="Peso (% da obra)">
-              <InputNumber style={{ width: '100%' }} min={0} max={100} suffix="%" />
+              <InputNumber<number>
+                style={{ width: '100%' }} min={0} max={100} suffix="%"
+                formatter={v => v === undefined || v === null ? '' : `${v}`.replace('.', ',')}
+                parser={v => (v ? Number(v.replace(',', '.')) : 0)}
+              />
             </Form.Item>
           </Col>
         </Row>

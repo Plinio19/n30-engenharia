@@ -13,7 +13,7 @@ import { useObrasStore } from '../../stores/useObrasStore';
 import { useClientesStore } from '../../stores/useClientesStore';
 import { usePrestadoresStore } from '../../stores/usePrestadoresStore';
 import { useSociosStore } from '../../stores/useSociosStore';
-import { formatarMoeda, uid, hoje, titleCase } from '../../utils';
+import { formatarMoeda, uid, hoje, titleCase, formatarInputMoeda, parseInputMoeda } from '../../utils';
 import type { Lancamento } from '../../types';
 
 const { Title, Text } = Typography;
@@ -798,6 +798,7 @@ export default function OFXPage() {
                                     )}
                                     <InputNumber size="small" style={{ width: 110 }} min={0} step={100} precision={2}
                                       prefix="R$" value={sp.valor}
+                                      formatter={v => formatarInputMoeda(v)} parser={v => parseInputMoeda(v) as unknown as number}
                                       onChange={v => updSplit(t.id, sp.id, { valor: v ?? 0 })} />
                                     {sp.cat === 'recebimento' && !sp.lancamentoId && (
                                       <Select size="small" style={{ width: 120 }} placeholder="Cliente" allowClear
