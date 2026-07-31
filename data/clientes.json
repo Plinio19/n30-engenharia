@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "tipo": "pj",
+    "cpfCnpj": "71.5552.0500/0181",
+    "nome": "CAMARA MUNICIPAL DA ESTANCIA BALNEARIA DE PERUIBE",
+    "email": "",
+    "telefone": "(13) 4558885",
+    "cep": "11750-000",
+    "logradouro": "NILO SOARES FERREIRA",
+    "numero": "37",
+    "complemento": "",
+    "bairro": "CENTRO",
+    "cidade": "PERUIBE",
+    "estado": "SP",
+    "nomeFantasia": "CAMARA MUNICIPAL DA ESTANCIA BALNEARIA DE PERUIBE",
+    "id": "ms9bx924s089j",
+    "criadoEm": "2026-07-31"
+  }
+]
