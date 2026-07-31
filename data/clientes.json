@@ -31,5 +31,21 @@
     "bairro": "Canto do Forte",
     "cidade": "Praia Grande",
     "estado": "SP"
+  },
+  {
+    "id": "ms9cy525bgrvs",
+    "criadoEm": "2026-07-31",
+    "tipo": "pf",
+    "cpfCnpj": "277.547.548-61",
+    "nome": "Esdras Perciliano Meyer",
+    "ie": "19192185",
+    "celular": "13991204011",
+    "cep": "11701-030",
+    "logradouro": "Rua Doutor Roberto Shoji",
+    "numero": "347",
+    "complemento": "Apto 65",
+    "bairro": "Boqueirão",
+    "cidade": "Praia Grande",
+    "estado": "SP"
   }
 ]
