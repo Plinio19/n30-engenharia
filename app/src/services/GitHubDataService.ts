@@ -93,25 +93,25 @@ export class GitHubDataService implements IDataService {
     const cfg = getConfig();
     if (!cfg) throw new Error('GitHub não configurado.');
 
-    // Busca sha fresco para evitar 409
-    let freshSha = sha;
-    try {
-      const check = await fetch(apiBase(cfg, path), { headers: headers(cfg) });
-      if (check.ok) freshSha = (await check.json()).sha;
-    } catch { /* usa sha atual */ }
-
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-    const body: Record<string, unknown> = { message, content, branch: cfg.branch };
-    if (freshSha) body.sha = freshSha;
+    const put = (shaToUse: string | null) => {
+      const body: Record<string, unknown> = { message, content, branch: cfg.branch };
+      if (shaToUse) body.sha = shaToUse;
+      return fetch(
+        `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${path}`,
+        { method: 'PUT', headers: headers(cfg), body: JSON.stringify(body) },
+      );
+    };
 
-    const res = await fetch(
-      `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${path}`,
-      {
-        method: 'PUT',
-        headers: headers(cfg),
-        body: JSON.stringify(body),
-      },
-    );
+    // Tenta salvar direto com o sha que já temos em memória — é o caminho rápido
+    // (1 requisição). Só busca o sha atual e tenta de novo se der conflito real
+    // (409 = alguém salvou por fora entre o último fetch e este save).
+    let res = await put(sha);
+    if (res.status === 409) {
+      const check = await fetch(apiBase(cfg, path), { headers: headers(cfg) });
+      const freshSha = check.ok ? (await check.json()).sha : null;
+      res = await put(freshSha);
+    }
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));

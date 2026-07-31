@@ -36,7 +36,9 @@ export default function LancamentoForm({ tipo, lancamento, open, onClose }: Prop
   const valorForm = Form.useWatch('valor', form);
   const numParcelasForm = Form.useWatch('numParcelas', form);
 
-  useEffect(() => { if (open) fetchObras(); }, [open]);
+  // Só busca de novo se ainda não carregou nesta sessão — evita 1 requisição
+  // extra ao GitHub toda vez que a gaveta é aberta.
+  useEffect(() => { if (open && obras.length === 0) fetchObras(); }, [open]);
 
   useEffect(() => {
     if (!open) return;
