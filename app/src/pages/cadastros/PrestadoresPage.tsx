@@ -55,6 +55,8 @@ export default function PrestadoresPage() {
       render: (v: string) => v || <Text type="secondary">—</Text> },
     { title: 'Telefone', dataIndex: 'telefone', width: 140,
       render: (v: string) => v || <Text type="secondary">—</Text> },
+    { title: 'PIX', dataIndex: 'pix', width: 160,
+      render: (v: string) => v || <Text type="secondary">—</Text> },
     { title: 'Valor/hora', dataIndex: 'valorHora', width: 120,
       render: (v: number) => v ? formatarMoeda(v) : <Text type="secondary">—</Text> },
     { title: 'Ações', key: 'acoes', width: 90,
@@ -105,6 +107,9 @@ export default function PrestadoresPage() {
               </Form.Item>
             </Col>
           </Row>
+          <Form.Item name="pix" label="Chave PIX">
+            <Input placeholder="CPF, e-mail, telefone ou chave aleatória" />
+          </Form.Item>
         </Form>
       </Drawer>
     </div>

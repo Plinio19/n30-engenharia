@@ -42,6 +42,7 @@ export interface Prestador {
   email?: string;
   especialidade?: string;
   valorHora?: number;
+  pix?: string;
   criadoEm: string;
 }
 
