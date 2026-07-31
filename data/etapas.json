@@ -22,7 +22,24 @@
     "percentualExecutado": 0,
     "dependencias": [],
     "checklist": [],
-    "materiais": [],
+    "materiais": [
+      {
+        "id": "ms9cim90ag6yl",
+        "nome": "ARGAMASSE C3 - QUARTIZZOLIT",
+        "catalogoId": "ms9chp29qhj2v",
+        "unidade": "sc",
+        "classificacao": "obrigatorio_iniciar",
+        "qtdPrevista": 10,
+        "qtdMinIniciar": 10,
+        "qtdComprada": 0,
+        "qtdEntregue": 0,
+        "qtdReservada": 0,
+        "qtdUtilizada": 0,
+        "valorPrevisto": 0,
+        "valorComprado": 0,
+        "pedidoCompra": false
+      }
+    ],
     "criadoEm": "2026-07-31"
   },
   {
