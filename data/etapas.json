@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "id": "ms9c5di07jqjg",
+    "obraId": "ms9c131ixq3to",
+    "nome": "RETIRADA E MANUTENÇÃO DO RUFOS",
+    "categoria": "cobertura",
+    "status": "concluida",
+    "peso": 100,
+    "percentualExecutado": 0,
+    "dependencias": [],
+    "checklist": [],
+    "materiais": [],
+    "criadoEm": "2026-07-31"
+  }
+]
