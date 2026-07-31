@@ -15,5 +15,21 @@
     "nomeFantasia": "CAMARA MUNICIPAL DA ESTANCIA BALNEARIA DE PERUIBE",
     "id": "ms9bx924s089j",
     "criadoEm": "2026-07-31"
+  },
+  {
+    "id": "ms9cugbapwva6",
+    "criadoEm": "2026-07-31",
+    "tipo": "pf",
+    "cpfCnpj": "224.783.138-98",
+    "nome": "Evandro Castro Rosa ",
+    "ie": "27203153",
+    "celular": "13991692433",
+    "cep": "11700-170",
+    "logradouro": "Rua Rui Barbosa",
+    "numero": "93",
+    "complemento": "Apto 14",
+    "bairro": "Canto do Forte",
+    "cidade": "Praia Grande",
+    "estado": "SP"
   }
 ]
