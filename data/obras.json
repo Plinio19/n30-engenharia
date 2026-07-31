@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "ms9c131ixq3to",
+    "nome": "CAMARA MUNICIPAL DE PERUIBE ",
+    "clienteId": "ms9bx924s089j",
+    "clienteNome": "CAMARA MUNICIPAL DA ESTANCIA BALNEARIA DE PERUIBE",
+    "qtdBoxes": 1,
+    "status": "andamento",
+    "valorContrato": 88379,
+    "dataInicio": "2026-04-02",
+    "dataPrevisaoFim": "2026-08-20",
+    "funcionarios": [],
+    "parcelas": [
+      {
+        "id": "ms9bz4o4s9m85",
+        "descricao": "PARCEÇLA TOTAL QUE VAI DIVIR EM MEDIÇÕES",
+        "valor": 88379,
+        "vencimento": "2026-08-20"
+      }
+    ],
+    "despesas": [
+      {
+        "id": "ms9bzyngeyt2t",
+        "descricao": "Mão de Obra Jhones",
+        "valor": 20000,
+        "vencimento": "2026-08-20",
+        "categoria": "mao-de-obra",
+        "prestadorId": "ms9bvr538kl28",
+        "prestadorNome": "Jhones Empreiteiro"
+      }
+    ],
+    "criadoEm": "2026-07-31"
+  }
+]
