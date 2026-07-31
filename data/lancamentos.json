@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": "ms9bz4o4s9m85",
+    "tipo": "receita",
+    "descricao": "CAMARA MUNICIPAL DE PERUIBE  — PARCEÇLA TOTAL QUE VAI DIVIR EM MEDIÇÕES",
+    "valor": 88379,
+    "vencimento": "2026-08-20",
+    "status": "pendente",
+    "categoria": "parcela",
+    "obraId": "ms9c131ixq3to",
+    "obraNome": "CAMARA MUNICIPAL DE PERUIBE ",
+    "clienteId": "ms9bx924s089j",
+    "clienteNome": "CAMARA MUNICIPAL DA ESTANCIA BALNEARIA DE PERUIBE",
+    "criadoEm": "2026-07-31"
+  },
+  {
+    "id": "ms9bzyngeyt2t",
+    "tipo": "despesa",
+    "descricao": "Mão de Obra Jhones",
+    "valor": 20000,
+    "vencimento": "2026-08-20",
+    "status": "pendente",
+    "categoria": "mao-de-obra",
+    "obraId": "ms9c131ixq3to",
+    "obraNome": "CAMARA MUNICIPAL DE PERUIBE ",
+    "prestadorId": "ms9bvr538kl28",
+    "prestadorNome": "Jhones Empreiteiro",
+    "criadoEm": "2026-07-31"
+  }
+]
