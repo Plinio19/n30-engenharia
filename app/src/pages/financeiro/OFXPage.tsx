@@ -53,8 +53,8 @@ interface EstadoClass {
   saldoRestanteIds?: string[]; // IDs de parcelas de saldo criadas na baixa parcial
 }
 
-const LS_EXTRATO = 'cbx_extrato';
-const LS_ESTADO  = 'cbx_extrato_estado_v2';
+const LS_EXTRATO = 'n30_extrato';
+const LS_ESTADO  = 'n30_extrato_estado_v2';
 
 const CAT_OPTS: { value: CatOFX; label: string }[] = [
   { value: 'recebimento',  label: 'Recebimento'    },

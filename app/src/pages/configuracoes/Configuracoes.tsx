@@ -14,8 +14,8 @@ import { useLancamentosStore } from '../../stores/useLancamentosStore';
 import { uid, hoje } from '../../utils';
 
 const { Title, Text } = Typography;
-const LS_CONFIG = 'construbox_config_v1';
-const DEFAULTS = { owner: 'Plinio19', repo: 'construbox', branch: 'main' };
+const LS_CONFIG = 'n30eng_config_v1';
+const DEFAULTS = { owner: 'Plinio19', repo: 'n30-engenharia', branch: 'master' };
 
 function lerLocalStorage(key: string): unknown[] {
   try {
@@ -81,8 +81,8 @@ export default function Configuracoes() {
     setPlano(null);
 
     // Lê localStorage diretamente para diagnóstico
-    const lsObras = lerLocalStorage('cbx_obras');
-    const lsLancs = lerLocalStorage('cbx_lanc');
+    const lsObras = lerLocalStorage('n30_obras');
+    const lsLancs = lerLocalStorage('n30_lanc');
     setLsObrasCount(lsObras.length);
     setLsLancsCount(lsLancs.length);
 
@@ -312,13 +312,13 @@ export default function Configuracoes() {
     setZerando(true);
     try {
       const colecoes: Array<[string, string]> = [
-        ['data/obras.json',        'cbx_obras'],
-        ['data/lancamentos.json',  'cbx_lanc'],
-        ['data/clientes.json',     'cbx_clientes'],
-        ['data/prestadores.json',  'cbx_prestadores'],
-        ['data/funcionarios.json', 'cbx_funcionarios'],
-        ['data/etapas.json',       'cbx_etapas'],
-        ['data/socios.json',       'cbx_socios'],
+        ['data/obras.json',        'n30_obras'],
+        ['data/lancamentos.json',  'n30_lanc'],
+        ['data/clientes.json',     'n30_clientes'],
+        ['data/prestadores.json',  'n30_prestadores'],
+        ['data/funcionarios.json', 'n30_funcionarios'],
+        ['data/etapas.json',       'n30_etapas'],
+        ['data/socios.json',       'n30_socios'],
       ];
 
       for (const [path, lsKey] of colecoes) {
@@ -326,8 +326,8 @@ export default function Configuracoes() {
         localStorage.setItem(lsKey, '[]');
       }
 
-      localStorage.setItem('cbx_extrato', '[]');
-      localStorage.setItem('cbx_extrato_estado_v2', '{}');
+      localStorage.setItem('n30_extrato', '[]');
+      localStorage.setItem('n30_extrato_estado_v2', '{}');
 
       message.success('✅ ERP zerado! Recarregando...');
       setTimeout(() => window.location.reload(), 1500);
@@ -354,10 +354,10 @@ export default function Configuracoes() {
             <Input placeholder="Plinio19" />
           </Form.Item>
           <Form.Item name="repo" label="Repositório" rules={[{ required: true }]}>
-            <Input placeholder="construbox" />
+            <Input placeholder="n30-engenharia" />
           </Form.Item>
           <Form.Item name="branch" label="Branch" rules={[{ required: true }]}>
-            <Input placeholder="main" />
+            <Input placeholder="master" />
           </Form.Item>
           <Divider />
           <Button type="primary" htmlType="submit" icon={<SaveOutlined />}>
@@ -396,8 +396,8 @@ export default function Configuracoes() {
         {lsObrasCount !== null && (
           <Row gutter={[8, 8]} style={{ marginBottom: 16 }}>
             {[
-              { title: 'cbx_obras (localStorage)', value: lsObrasCount, color: lsObrasCount > 0 ? '#52c41a' : '#f5222d' },
-              { title: 'cbx_lanc (localStorage)',  value: lsLancsCount ?? 0, color: undefined },
+              { title: 'n30_obras (localStorage)', value: lsObrasCount, color: lsObrasCount > 0 ? '#52c41a' : '#f5222d' },
+              { title: 'n30_lanc (localStorage)',  value: lsLancsCount ?? 0, color: undefined },
               { title: 'Obras carregadas (store)', value: ghObrasCount ?? 0, color: (ghObrasCount ?? 0) > 0 ? '#52c41a' : '#fa8c16' },
               { title: 'Lancs carregados (store)', value: ghLancsCount ?? 0, color: undefined },
             ].map(item => (

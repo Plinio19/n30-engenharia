@@ -1,25 +1,23 @@
 import type { IDataService } from './IDataService';
 import type { DataResult, GitHubConfig } from '../types';
 
-// Mesma chave e defaults do sistema HTML legado
-const LS_CONFIG = 'construbox_config_v1';
+const LS_CONFIG = 'n30eng_config_v1';
 const DEFAULTS: Partial<GitHubConfig> = {
   owner:  'Plinio19',
-  repo:   'construbox',
-  branch: 'main',
+  repo:   'n30-engenharia',
+  branch: 'master',
 };
 
-// Mapeamento path → chave localStorage (compatível com o sistema legado)
 const CACHE_MAP: Record<string, string> = {
-  'data/obras.json':             'cbx_obras',
-  'data/lancamentos.json':       'cbx_lanc',
-  'data/etapas.json':            'cbx_etapas',
-  'data/modelos.json':           'cbx_modelos',
-  'data/clientes.json':          'cbx_clientes',
-  'data/prestadores.json':       'cbx_prestadores',
-  'data/funcionarios.json':      'cbx_funcionarios',
-  'data/materiais_catalogo.json':'cbx_materiais_cat',
-  'data/socios.json':            'cbx_socios',
+  'data/obras.json':             'n30_obras',
+  'data/lancamentos.json':       'n30_lanc',
+  'data/etapas.json':            'n30_etapas',
+  'data/modelos.json':           'n30_modelos',
+  'data/clientes.json':          'n30_clientes',
+  'data/prestadores.json':       'n30_prestadores',
+  'data/funcionarios.json':      'n30_funcionarios',
+  'data/materiais_catalogo.json':'n30_materiais_cat',
+  'data/socios.json':            'n30_socios',
 };
 
 function cacheKey(path: string): string {
@@ -90,7 +88,7 @@ export class GitHubDataService implements IDataService {
     path: string,
     data: T[],
     sha: string | null,
-    message = 'Atualização Construbox',
+    message = 'Atualização N30 Engenharia',
   ): Promise<string> {
     const cfg = getConfig();
     if (!cfg) throw new Error('GitHub não configurado.');
@@ -106,11 +104,14 @@ export class GitHubDataService implements IDataService {
     const body: Record<string, unknown> = { message, content, branch: cfg.branch };
     if (freshSha) body.sha = freshSha;
 
-    const res = await fetch(apiBase(cfg, path), {
-      method: 'PUT',
-      headers: headers(cfg),
-      body: JSON.stringify(body),
-    });
+    const res = await fetch(
+      `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${path}`,
+      {
+        method: 'PUT',
+        headers: headers(cfg),
+        body: JSON.stringify(body),
+      },
+    );
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
