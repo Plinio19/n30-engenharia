@@ -11,5 +11,18 @@
     "checklist": [],
     "materiais": [],
     "criadoEm": "2026-07-31"
+  },
+  {
+    "id": "ms9cam5zkbbu3",
+    "obraId": "ms9c131ixq3to",
+    "nome": "ETAPA 2",
+    "categoria": "hidraulica",
+    "status": "em_andamento",
+    "peso": 40,
+    "percentualExecutado": 0,
+    "dependencias": [],
+    "checklist": [],
+    "materiais": [],
+    "criadoEm": "2026-07-31"
   }
 ]
