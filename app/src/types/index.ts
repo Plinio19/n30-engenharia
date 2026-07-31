@@ -277,6 +277,10 @@ export interface Lancamento {
   socioNome?: string;
   categoria?: string;
   observacoes?: string;
+  // Parcelamento (venda/contrato fechado em N vezes)
+  grupoParcelamento?: string;
+  parcelaAtual?: number;
+  totalParcelas?: number;
   // OFX / conciliação bancária
   ofxId?: string;
   conciliado?: boolean;

@@ -34,6 +34,7 @@ interface LancamentosState {
   fetch: () => Promise<void>;
   save: (lancamentos: Lancamento[], msg?: string) => Promise<void>;
   upsert: (lancamento: Lancamento) => Promise<void>;
+  addMany: (lancamentos: Lancamento[]) => Promise<void>;
   remove: (id: string) => Promise<void>;
   receitas: () => Lancamento[];
   despesas: () => Lancamento[];
@@ -69,6 +70,11 @@ export const useLancamentosStore = create<LancamentosState>((set, get) => ({
       ? all.map(l => l.id === lancamento.id ? lancamento : l)
       : [...all, lancamento];
     await get().save(next, `${idx >= 0 ? 'Atualizar' : 'Novo'} lançamento`);
+  },
+
+  addMany: async (lancamentos) => {
+    const all = get().lancamentos;
+    await get().save([...all, ...lancamentos], `${lancamentos.length} lançamentos criados (parcelamento)`);
   },
 
   remove: async (id) => {

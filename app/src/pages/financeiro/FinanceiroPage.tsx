@@ -75,6 +75,9 @@ export default function FinanceiroPage({ tipo }: Props) {
           <Text strong>{titleCase(desc)}</Text>
           {r.obraNome && <div><Text type="secondary" style={{ fontSize: 12 }}>{r.obraNome}</Text></div>}
           {r.categoria && <Tag style={{ marginTop: 2, fontSize: 11 }}>{r.categoria}</Tag>}
+          {r.totalParcelas && r.totalParcelas > 1 && (
+            <Tag color="purple" style={{ marginTop: 2, fontSize: 11 }}>Parcela {r.parcelaAtual}/{r.totalParcelas}</Tag>
+          )}
         </div>
       ),
     },
