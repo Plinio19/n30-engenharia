@@ -269,5 +269,44 @@
     "categoria": "Contrato",
     "observacoes": "-Projeto em 3d\n(Pagamento na entrega)",
     "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbweq3px7njw",
+    "tipo": "receita",
+    "descricao": "Renan Arruda Moedano Alves - Aprovaçao de Projeto (1/3)",
+    "valor": 6398,
+    "vencimento": "2026-06-10",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "grupoParcelamento": "msbweq3oqghkw",
+    "parcelaAtual": 1,
+    "totalParcelas": 3,
+    "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbweq3paskx2",
+    "tipo": "receita",
+    "descricao": "Renan Arruda Moedano Alves - Aprovaçao de Projeto (2/3)",
+    "valor": 3199,
+    "vencimento": "2026-07-10",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "grupoParcelamento": "msbweq3oqghkw",
+    "parcelaAtual": 2,
+    "totalParcelas": 3,
+    "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbweq3pgx4bs",
+    "tipo": "receita",
+    "descricao": "Renan Arruda Moedano Alves - Aprovaçao de Projeto (3/3)",
+    "valor": 3199,
+    "vencimento": "2026-08-10",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "grupoParcelamento": "msbweq3oqghkw",
+    "parcelaAtual": 3,
+    "totalParcelas": 3,
+    "criadoEm": "2026-08-02"
   }
 ]
