@@ -230,5 +230,32 @@
     "parcelaAtual": 3,
     "totalParcelas": 3,
     "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw69u3ypjke",
+    "tipo": "receita",
+    "descricao": "Evangélio de Jesus Costa - Aprovação de Projeto (1/2)",
+    "valor": 2500,
+    "vencimento": "2026-07-17",
+    "pagamento": "2026-07-17",
+    "status": "pago",
+    "categoria": "Contrato",
+    "grupoParcelamento": "msbw69u3cwboc",
+    "parcelaAtual": 1,
+    "totalParcelas": 2,
+    "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw69u3kl3yb",
+    "tipo": "receita",
+    "descricao": "Evangélio de Jesus Costa - Aprovação de Projeto (2/2)",
+    "valor": 2000,
+    "vencimento": "2026-08-17",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "grupoParcelamento": "msbw69u3cwboc",
+    "parcelaAtual": 2,
+    "totalParcelas": 2,
+    "criadoEm": "2026-08-02"
   }
 ]
