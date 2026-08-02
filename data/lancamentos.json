@@ -187,5 +187,48 @@
     "parcelaAtual": 4,
     "totalParcelas": 4,
     "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw4apjfmiq2",
+    "tipo": "receita",
+    "descricao": "Bruno Simplicio - Aprovação de Projeto (1/3)",
+    "valor": 3750,
+    "vencimento": "2026-07-22",
+    "pagamento": "2026-07-22",
+    "status": "pago",
+    "categoria": "Contrato",
+    "observacoes": "-Aprovaçao de Projeto\n-Projeto em 3D",
+    "grupoParcelamento": "msbw4apjxs3rb",
+    "parcelaAtual": 1,
+    "totalParcelas": 3,
+    "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw4apj2pql9",
+    "tipo": "receita",
+    "descricao": "Bruno Simplicio - Aprovação de Projeto (2/3)",
+    "valor": 1875,
+    "vencimento": "2026-08-22",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "observacoes": "-Aprovaçao de Projeto\n-Projeto em 3D",
+    "grupoParcelamento": "msbw4apjxs3rb",
+    "parcelaAtual": 2,
+    "totalParcelas": 3,
+    "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw4apjj9iga",
+    "tipo": "receita",
+    "descricao": "Bruno Simplicio - Aprovação de Projeto (3/3)",
+    "valor": 1875,
+    "vencimento": "2026-09-22",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "observacoes": "-Aprovaçao de Projeto\n-Projeto em 3D",
+    "grupoParcelamento": "msbw4apjxs3rb",
+    "parcelaAtual": 3,
+    "totalParcelas": 3,
+    "criadoEm": "2026-08-02"
   }
 ]
