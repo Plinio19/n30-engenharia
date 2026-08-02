@@ -257,5 +257,17 @@
     "parcelaAtual": 2,
     "totalParcelas": 2,
     "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw82ycfssnd",
+    "tipo": "receita",
+    "descricao": "Tiago Polegar - Projeto em 3D",
+    "valor": 1200,
+    "vencimento": "2026-08-07",
+    "pagamento": "2026-08-07",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "observacoes": "-Projeto em 3d\n(Pagamento na entrega)",
+    "criadoEm": "2026-08-02"
   }
 ]
