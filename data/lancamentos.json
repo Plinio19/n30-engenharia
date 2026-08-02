@@ -130,5 +130,62 @@
     "parcelaAtual": 8,
     "totalParcelas": 8,
     "criadoEm": "2026-07-31"
+  },
+  {
+    "id": "msbw05m4xd2du",
+    "tipo": "receita",
+    "descricao": "Evandro Castro - Aprovação de Projeto (1/4)",
+    "valor": 3000,
+    "vencimento": "2026-07-20",
+    "pagamento": "2026-07-20",
+    "status": "pago",
+    "categoria": "Contrato",
+    "observacoes": "-Aprovaçao de Projeto\n-Projeto Elétrico\n-Projeto Hidráulico\n-Projeto Estrutural\n-Projeto em 3D",
+    "grupoParcelamento": "msbw05m3l8jh2",
+    "parcelaAtual": 1,
+    "totalParcelas": 4,
+    "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw05m4xj4uf",
+    "tipo": "receita",
+    "descricao": "Evandro Castro - Aprovação de Projeto (2/4)",
+    "valor": 3000,
+    "vencimento": "2026-08-20",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "observacoes": "-Aprovaçao de Projeto\n-Projeto Elétrico\n-Projeto Hidráulico\n-Projeto Estrutural\n-Projeto em 3D",
+    "grupoParcelamento": "msbw05m3l8jh2",
+    "parcelaAtual": 2,
+    "totalParcelas": 4,
+    "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw05m4yvvgk",
+    "tipo": "receita",
+    "descricao": "Evandro Castro - Aprovação de Projeto (3/4)",
+    "valor": 3000,
+    "vencimento": "2026-09-20",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "observacoes": "-Aprovaçao de Projeto\n-Projeto Elétrico\n-Projeto Hidráulico\n-Projeto Estrutural\n-Projeto em 3D",
+    "grupoParcelamento": "msbw05m3l8jh2",
+    "parcelaAtual": 3,
+    "totalParcelas": 4,
+    "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msbw05m4f4y03",
+    "tipo": "receita",
+    "descricao": "Evandro Castro - Aprovação de Projeto (4/4)",
+    "valor": 3000,
+    "vencimento": "2026-10-20",
+    "status": "pendente",
+    "categoria": "Contrato",
+    "observacoes": "-Aprovaçao de Projeto\n-Projeto Elétrico\n-Projeto Hidráulico\n-Projeto Estrutural\n-Projeto em 3D",
+    "grupoParcelamento": "msbw05m3l8jh2",
+    "parcelaAtual": 4,
+    "totalParcelas": 4,
+    "criadoEm": "2026-08-02"
   }
 ]
