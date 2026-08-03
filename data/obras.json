@@ -30,5 +30,20 @@
       }
     ],
     "criadoEm": "2026-07-31"
+  },
+  {
+    "id": "msdfgx3vy7si9",
+    "nome": "OBRA O-1 (Bosque três marias)",
+    "clienteId": "ms9d0gatkc8ax",
+    "clienteNome": "Elias Ferreira de Brito",
+    "qtdBoxes": 1,
+    "status": "aprovado",
+    "valorContrato": 240000,
+    "dataInicio": "2026-09-03",
+    "dataPrevisaoFim": "2027-08-03",
+    "funcionarios": [],
+    "parcelas": [],
+    "despesas": [],
+    "criadoEm": "2026-08-03"
   }
 ]
