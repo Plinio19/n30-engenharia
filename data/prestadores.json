@@ -4,5 +4,16 @@
     "criadoEm": "2026-07-31",
     "nome": "Jhones Empreiteiro",
     "especialidade": "Mestre de Obra"
+  },
+  {
+    "id": "msduzctmokugk",
+    "criadoEm": "2026-08-03",
+    "nome": "Arthur Siqueira Nonato",
+    "especialidade": "Projetista",
+    "cpfCnpj": "45159417800",
+    "telefone": "13997091834",
+    "email": "arthurnonato674@gmail.com",
+    "valorHora": 0,
+    "pix": "13997091834"
   }
 ]
