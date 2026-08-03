@@ -45,5 +45,20 @@
     "parcelas": [],
     "despesas": [],
     "criadoEm": "2026-08-03"
+  },
+  {
+    "id": "msdfirtvn0hwx",
+    "nome": "Obra M-5 (Bosque três marias)",
+    "clienteId": "ms9cy525bgrvs",
+    "clienteNome": "Esdras Perciliano Meyer",
+    "qtdBoxes": 1,
+    "status": "aprovado",
+    "valorContrato": 240000,
+    "dataInicio": "2026-09-03",
+    "dataPrevisaoFim": "2027-08-18",
+    "funcionarios": [],
+    "parcelas": [],
+    "despesas": [],
+    "criadoEm": "2026-08-03"
   }
 ]
