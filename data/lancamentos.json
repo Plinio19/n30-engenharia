@@ -906,5 +906,16 @@
     "parcelaAtual": 12,
     "totalParcelas": 12,
     "criadoEm": "2026-08-02"
+  },
+  {
+    "id": "msdvbt29q4oay",
+    "tipo": "despesa",
+    "descricao": "Energia ",
+    "valor": 75,
+    "vencimento": "2026-08-10",
+    "pagamento": "2026-08-10",
+    "status": "pendente",
+    "observacoes": "Conta de Luz",
+    "criadoEm": "2026-08-03"
   }
 ]
